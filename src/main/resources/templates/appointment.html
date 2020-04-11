@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-success justify-content-between">
+        <a class="navbar-brand" style="color:white">Are You OK</a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="请输入要找查的医生名字" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    <br>
+    <div class="container">
+        <h2>医生预约信息查询</h2>
+        <hr>
+        <div class="border border-success">
+            <div class="row" style="font-size:12px">
+                <div class="col-md-1 text-center">科室</div>
+                <div class="col-md-1 text-center"><a href="#">全部</a></div>
+                <div class="col-md-1 text-center"><a href="#">儿科</a></div>
+                <div class="col-md-1 text-center"><a href="#">妇产科</a></div>
+                <div class="col-md-1 text-center"><a href="#">皮肤科</a></div>
+                <div class="col-md-1 text-center"><a href="#">内科</a></div>
+                <div class="col-md-1 text-center"><a href="#">耳鼻喉科</a></div>
+                <div class="col-md-1 text-center"><a href="#">外科</a></div>
+                <div class="col-md-1 text-center"><a href="#">眼科</a></div>
+                <div class="col-md-1 text-center"><a href="#">口腔科</a></div>
+                <div class="col-md-1 text-center"><a href="#">肿瘤科</a></div>
+                <div class="col-md-1 text-center"><a href="#">中医科</a></div>
+                <div class="col-md-1 text-center"><a href="#">康复医学科</a></div>
+                <div class="col-md-1 text-center"><a href="#">麻醉医学科</a></div>
+                <div class="col-md-1 text-center"><a href="#">营养科</a></div>
+                <div class="col-md-1 text-center"><a href="#">传染病科</a></div>
+                <div class="col-md-1 text-center"><a href="#">医学影像学</a></div>
+                <div class="col-md-1 text-center"><a href="#">其他科室</a></div>
+            </div>
+            <hr>
+            <div class="row" style="font-size:12px">
+                <div class="col-md-1 text-center">日期</div>
+                <div class="col-md-1 text-center"><a href="#">今日</a></div>
+                <div class="col-md-1 text-center"><a href="#">明日</a></div>
+                <div class="col-md-1 text-center"><a href="#">后日</a></div>
+            </div>
+        
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="background-color: #F8F8F8;">专家/医生</th>
+                    <th style="background-color: #F8F8F8;">自我简介</th>
+                    <th style="background-color: #F8F8F8;">已预约数量</th>
+                    <th style="background-color: #F8F8F8;">最大预约数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="stu : ${student}">
+                    <td th:text=${stu.no}></td>
+                    <td th:text=${stu.name}></td>
+                    <td th:text=${stu.age}></td>
+                </tr>
+            </tbody>
+            </table>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+    <script>
+        var vue = new Vue({
+            el: "#app",
+            data: {
+                doctors:[]
+            },
+            methods: {
+                getMessage:function() {
+                    axios.get("https://localhost:8080/api/v1/doctors")
+                        .then(response => {
+                            this.doctors = response.data;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
+        });
+    </script>
+</body>
+</html>
